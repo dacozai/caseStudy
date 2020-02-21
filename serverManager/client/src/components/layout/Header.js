@@ -17,7 +17,7 @@ export class Header extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <img className="navbar-brand" src={logo} alt="Logo" />
+          {/* <img className="navbar-brand" src={logo} alt="Logo" /> */}
           <ul className="navbar=nav mr-auto mt-2 mt-lg-0">
 
           </ul>

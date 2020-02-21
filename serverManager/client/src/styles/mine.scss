@@ -1,5 +1,14 @@
 $myColor: green;
+$btHeightSize: 150px; 
+$btWidthSize: $btHeightSize * 2; 
 
 h2 {
   color: $myColor;
+}
+
+.myBt {
+  font-size: 30px;
+  height: $btHeightSize;
+  width: $btWidthSize;
+  margin: 50px;
 }
