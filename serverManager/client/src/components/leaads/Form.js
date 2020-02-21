@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addData } from "../../actions/crudtest";
 
-import './mine.scss';
+import '../../styles/mine.scss';
 
 export class Form extends Component {
   state = {

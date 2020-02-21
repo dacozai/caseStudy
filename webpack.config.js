@@ -1,8 +1,9 @@
 module.exports = {
+  entry: './serverManager/client/src/index.js',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
