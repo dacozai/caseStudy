@@ -1,4 +1,6 @@
-module.exports = {
+'use strict';
+
+const CONFIG = {
   entry: './serverManager/client/src/index.js',
   module: {
     rules: [
@@ -11,11 +13,8 @@ module.exports = {
       }, {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
           'style-loader',
-          // Translates CSS into CommonJS
           'css-loader',
-          // Compiles Sass to CSS
           'sass-loader',
         ],
       }, {
@@ -29,3 +28,5 @@ module.exports = {
     ]
   }
 }
+
+module.exports = CONFIG;

@@ -70,7 +70,7 @@ export class CalForm extends Component {
                 value={this.state.rule}
                 onChange={this.handleInputChange}
               >
-                <option selected value="coconut">
+                <option value="coconut">
                   First in First Out (FIFO)
                 </option>
               </Input>
