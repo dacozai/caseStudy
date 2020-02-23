@@ -34,7 +34,9 @@ export class Fakehader extends Component {
             <NavbarBrand className="mr-auto" href="/">
               {/* <img src={logo} height="100" width="100" alt="Validus" /> */}
             </NavbarBrand>
-            <p> Capital call</p>
+            <NavLink className="mr-auto" to="/">
+              <span> Capital call</span>
+            </NavLink>
             <Collapse isOpen={this.state.isNavOpen} navbar>
               <Nav navbar>
                 <NavItem>

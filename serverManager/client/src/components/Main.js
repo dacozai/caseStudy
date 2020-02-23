@@ -7,7 +7,7 @@ import {
 
 import Welcome from './validus/Welcome';
 import MyDashBoard from './validus/Dashboard';
-import NewCall from './validus/Newcall';
+import NewCall from './validus/newCall/Newcall';
 
 export class Main extends Component {
   render() {
