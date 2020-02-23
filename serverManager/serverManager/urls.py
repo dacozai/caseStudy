@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 
+base_view = include('client.urls')
 urlpatterns = [
-    path('', include('client.urls')),
-    path('', include('server.urls')),
+    path('', base_view),
+    path('', base_view),
+    url(r'^$', base_view),
+    url(r'^(?:.*)/?$', base_view),
 ]
+
