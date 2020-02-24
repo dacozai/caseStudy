@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 
-base_view = include('client.urls')
+baseView = include('client.urls')
+serverApi = include('server.urls')
 urlpatterns = [
-    path('', base_view),
-    path('', base_view),
-    url(r'^$', base_view),
-    url(r'^(?:.*)/?$', base_view),
+    path('', baseView),
+    path('', serverApi),
+    url(r'^', baseView),
+    url(r'^(?:.*)/?', baseView),
 ]
 
