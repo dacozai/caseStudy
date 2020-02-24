@@ -8,7 +8,11 @@ const CONFIG = {
         test: /\.js?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            presets: ['@babel/preset-react'],
+            plugins: ['@babel/syntax-dynamic-import', 'transform-class-properties'],
+          },
         }
       }, {
         test: /\.s[ac]ss$/i,
@@ -18,13 +22,19 @@ const CONFIG = {
           'sass-loader',
         ],
       }, {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
+            options: {
+              limit: 25600,
+            },
           },
         ],
-      }
+      }, {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
+      },
     ]
   }
 }

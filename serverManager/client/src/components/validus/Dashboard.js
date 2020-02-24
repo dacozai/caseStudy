@@ -1,37 +1,63 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getFunds } from "../../actions/callUp";
 
-import Fakehader from './Fakehader';
+import Fakehader from "./Fakehader";
 
-import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import BootstrapTable from 'react-bootstrap-table-next';
+import { Container } from 'reactstrap';
 
-var products = [{
-  date: '2018/1/31',
-  call: 1,
-  FundOne: 9500000.00,
-  FundTwo: null,
-  FundThree: null,
-  FundFour: null
-}];
+var products = [
+  {
+    date: "2018/1/31",
+    call: 1,
+    Fund_1: 9500000.0,
+    Fund_2: null,
+    Fund_3: null,
+    Fund_4: null
+  }
+];
+
+var columns = [
+  { dataField: "date", text: "Date" },
+  { dataField: "call", text: "Call #" }
+];
 
 export class Dashboard extends Component {
+  static propTypes = {
+    funds: PropTypes.array.isRequired,
+    getFunds: PropTypes.func.isRequired
+  };
+
+  componentDidMount() {
+    this.props.getFunds();
+    console.log(this.props.funds);
+  }
 
   render() {
+    // console.log(this.props.funds);
+    if (this.props.funds.length > 0){
+      for (let i=0;i< this.props.funds.length; i++) {
+        let elem = this.props.funds[i]; 
+        columns.push({dataField: elem.name.replace(/[ ,]+/g, "_"), text: elem.name});
+      }
+      console.log(columns);
+    } 
+
     return (
       <div>
-        <Fakehader /> 
-        <div className="container">
-          <BootstrapTable data={ products }>
-            <TableHeaderColumn dataField='date' isKey width='20%' dataAlign="center">Date</TableHeaderColumn>
-            <TableHeaderColumn dataField='call' width='10%' dataAlign="right">Call #</TableHeaderColumn>
-            <TableHeaderColumn dataField='FundOne' width='10%' dataAlign="right">Fund 1</TableHeaderColumn>
-            <TableHeaderColumn dataField='FundTwo' width='10%' dataAlign="right">Fund 2</TableHeaderColumn>
-            <TableHeaderColumn dataField='FundThree' width='10%' dataAlign="right">Fund 3</TableHeaderColumn>
-            <TableHeaderColumn dataField='FundFour' width='10%' dataAlign="right">Fund 4</TableHeaderColumn>
-          </BootstrapTable>
-        </div>
+        <Fakehader />
+        <Container>
+          <BootstrapTable keyField='id' data={ products } columns={ columns } />
+        </Container>
       </div>
-    )
+    );
   }
 }
 
-export default Dashboard
+const mapStateToProps = state => ({
+  funds: state.callsReducer.funds
+});
+
+export default connect(mapStateToProps, { getFunds })(Dashboard);

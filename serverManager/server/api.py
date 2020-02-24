@@ -1,4 +1,4 @@
-from server.models import Test
+from server.models import * 
 from rest_framework import viewsets, permissions
 from .serializers import * 
 
@@ -28,7 +28,7 @@ class CommitViewSet(viewsets.ModelViewSet):
 
 # Call ViewSet
 class CallViewSet(viewsets.ModelViewSet):
-  queryset = FundCommitment.objects.all()
+  queryset = Call.objects.all()
   permission_classes = [
     permissions.AllowAny
   ]
@@ -36,8 +36,9 @@ class CallViewSet(viewsets.ModelViewSet):
 
 # FundInvest ViewSet
 class FundInvestViewSet(viewsets.ModelViewSet):
-  queryset = FundCommitment.objects.all()
+  queryset = FundInvest.objects.all()
   permission_classes = [
     permissions.AllowAny
   ]
-  serializer_class = FundInvest
+  serializer_class = FundInvestSerializer
+  
