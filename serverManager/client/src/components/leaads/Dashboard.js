@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Form from './Form';
 import Leads from './Leads';
 
-export default function Dashboard() {
+const Dashboard = () => {
   return (
     <Fragment>
       <Form />
@@ -10,3 +10,5 @@ export default function Dashboard() {
     </Fragment>
   )
 }
+
+export default Dashboard; 

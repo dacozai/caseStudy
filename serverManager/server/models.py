@@ -1,4 +1,7 @@
 from django.db import models
+from collections import namedtuple
+
+from django.db import connection
 
 # Create your models here.
 class Test(models.Model):
@@ -36,6 +39,7 @@ class FundInvest(models.Model):
     on_delete=models.CASCADE,
   )
   invest_amount = models.DecimalField(max_digits=19, decimal_places=2) 
+
 
 
 

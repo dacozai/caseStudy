@@ -1,7 +1,10 @@
 import { GET_FUNDS } from '../actions/types.js';
 
 const initialState = {
-  funds: []
+  funds: {
+    column:[], 
+    data:[]
+  }
 }
 
 export default function(state = initialState, action) {

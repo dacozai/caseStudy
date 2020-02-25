@@ -30,3 +30,5 @@ class FundInvestSerializer(serializers.ModelSerializer):
   class Meta:
     model = FundInvest 
     fields = '__all__'
+
+
