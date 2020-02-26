@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_FUNDS } from "./types";
+import { GET_FUNDS, GET_REQUESTS } from "./types";
 
 // GET FUNDS
 export const getFunds = () => dispatch => {
@@ -75,4 +75,7 @@ export const getFunds = () => dispatch => {
 
 };
 
+export const onChangeRequest = () => dispatch => {
+
+}
 

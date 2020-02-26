@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import {
   Form,
-  FormGroup,
-  Label,
-  Input,
-  Col
+  Button,
 } from "reactstrap";
-import variables from "../../../styles/mine.scss";
-import Elem from "./CallFormElem";
 
-const formTitle = variables.formTitle;
-const formValue = variables.formValue;
+import Elem from "./CallFormElem";
+import ElemOpt from "./CallFormOpt";
 
 export class CalForm extends Component {
   constructor(props) {
@@ -24,6 +19,7 @@ export class CalForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.wtf = this.wtf.bind(this);
   }
 
   handleInputChange(event) {
@@ -40,6 +36,10 @@ export class CalForm extends Component {
     console.log("Current State is: " + JSON.stringify(this.state));
     alert("Current State is: " + JSON.stringify(this.state));
     event.preventDefault();
+  }
+  
+  wtf() {
+    this.props.callbackFromChild(this.state);
   }
 
   render() {
@@ -88,14 +88,16 @@ export class CalForm extends Component {
     ];
 
     let formList = elements.map( function(each) {
-      return <Elem field={each}/>
+      if (each.inpuType === "select")
+        return <ElemOpt key={"parent_"+each.keyField} field={each} /> 
+      return <Elem key={"parent_"+each.keyField} field={each} />
     });
-
 
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           {formList}
+          <Button onClick={this.wtf}> CCCCCCalculate </Button>
         </Form>
       </div>
     );
