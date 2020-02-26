@@ -19,7 +19,7 @@ export class Dashboard extends Component {
   }
 
   render() {
-    if (this.props.funds.column.length > 0) {
+    if (this.props.funds.column.length > 0 && this.props.funds.data.length > 0 ) {
       return (
         <div>
           <Fakehader />

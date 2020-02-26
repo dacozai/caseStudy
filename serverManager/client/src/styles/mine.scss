@@ -2,6 +2,10 @@ $myColor: green;
 $btHeightSize: 150px; 
 $btWidthSize: $btHeightSize * 2; 
 
+// control of bootstrap col size
+$formTitle: 6;
+$formValue: 6;
+
 h2 {
   color: $myColor;
 }
@@ -11,4 +15,10 @@ h2 {
   height: $btHeightSize;
   width: $btWidthSize;
   margin: 50px;
+}
+
+
+:export {
+  formTitle: $formTitle;
+  formValue: $formValue;
 }

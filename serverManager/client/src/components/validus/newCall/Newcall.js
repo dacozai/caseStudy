@@ -26,7 +26,7 @@ class Newcall extends Component {
             </Col>
           </Row>
           <Button> Calculate </Button>
-        <ConfirmTable />
+        {/* <ConfirmTable /> */}
         <Row>
           <Col xs="4"></Col>
           <Col xs="4">

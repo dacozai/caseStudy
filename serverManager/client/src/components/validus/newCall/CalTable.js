@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import BootstrapTable from 'react-bootstrap-table-next';
 
 var products = [
   {
@@ -13,53 +14,23 @@ var products = [
   }
 ];
 
+var columns = [
+  {dataField: "commitId",text: "Commitment_ID"},
+  {dataField: "fundId",text: "Fund_ID"},
+  {dataField: "date",text: "Date"},
+  {dataField: "fund",text: "Fund"},
+  {dataField: "commitAmount",text: "Commited Amount"},
+  {dataField: "notice",text: "Notice"},
+  {dataField: "totalDrawNotice",text: "Total Drawdown Notice"},
+  {dataField: "undrawCapiNotice",text: "Undrawn Capital Commitment After Current Drawdown Notice"},
+]
+
 export class CalTable extends Component {
   render() {
     return (
       <div>
-        <BootstrapTable data={products}>
-          <TableHeaderColumn
-            dataField="commitId"
-            isKey
-            width="10%"
-            dataAlign="center"
-          >
-            Commitment_ID
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="fundId" width="10%" dataAlign="center">
-            Fund_ID
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="date" width="15%" dataAlign="center">
-            Date
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="fund" width="5%" dataAlign="center">
-            Fund
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField="commitAmount"
-            width="15%"
-            dataAlign="center"
-          >
-            Commited Amount
-          </TableHeaderColumn>
-          <TableHeaderColumn dataField="notice" width="15%" dataAlign="center">
-            Notice
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField="totalDrawNotice"
-            width="15%"
-            dataAlign="center"
-          >
-            Total Drawdown Notice
-          </TableHeaderColumn>
-          <TableHeaderColumn
-            dataField="undrawCapiNotice"
-            width="15%"
-            dataAlign="center"
-          >
-            Undrawn Capital Commitment After Current Drawdown Notice
-          </TableHeaderColumn>
-        </BootstrapTable>
+        <BootstrapTable keyField='id' data={ products } columns={ columns } />
+          
       </div>
     );
   }

@@ -5,7 +5,12 @@ import {
   Label,
   Input,
   Col
-} from "reactstrap"
+} from "reactstrap";
+import variables from "../../../styles/mine.scss";
+import Elem from "./CallFormElem";
+
+const formTitle = variables.formTitle;
+const formValue = variables.formValue;
 
 export class CalForm extends Component {
   constructor(props) {
@@ -37,75 +42,60 @@ export class CalForm extends Component {
     event.preventDefault();
   }
 
-
   render() {
+    const elements = [
+      {
+        keyField: "d_formDate",
+        labelFor: "inDate",
+        labelName: "Date",
+        inpuType: "date",
+        inpuId: "inDate",
+        inpuName: "inDate",
+        inpuPlaceholder: "date",
+        inpuValue: this.state.inDatea,
+        onChgMethod: this.handleInputChange
+      }, {
+        keyField: "d_formRule",
+        labelFor: "rule",
+        labelName: "Rule",
+        inpuType: "select",
+        inpuId: "rule",
+        inpuName: "rule",
+        inpuPlaceholder: "Rule",
+        inpuValue: this.state.rule,
+        onChgMethod: this.handleInputChange
+      }, {
+        keyField: "d_formInvest",
+        labelFor: "date",
+        labelName: "Investment Name",
+        inpuType: "text",
+        inpuId: "investName",
+        inpuName: "investName",
+        inpuPlaceholder: "Investment Name",
+        inpuValue: this.state.investName,
+        onChgMethod: this.handleInputChange
+      }, {
+        keyField: "d_formCapital",
+        labelFor: "date",
+        labelName: "Capital Required for Investment",
+        inpuType: "text",
+        inpuId: "capitalRe",
+        inpuName: "capitalRe",
+        inpuPlaceholder: "Capital Required for Investment",
+        inpuValue: this.state.capitalRe,
+        onChgMethod: this.handleInputChange
+      }
+    ];
+
+    let formList = elements.map( function(each) {
+      return <Elem field={each}/>
+    });
+
+
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
-          <FormGroup row>
-            <Label htmlFor="inDate" md={2}>
-              Date
-            </Label>
-            <Col md={5}>
-              <Input
-                type="date"
-                id="inDate"
-                name="inDate"
-                placeholder="Date"
-                value={this.state.inDate}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label htmlFor="rule" md={2}>
-              Rule
-            </Label>
-            <Col md={5}>
-              <Input
-                type="select"
-                id="rule"
-                name="rule"
-                placeholder="Rule"
-                value={this.state.rule}
-                onChange={this.handleInputChange}
-              >
-                <option value="coconut">
-                  First in First Out (FIFO)
-                </option>
-              </Input>
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label htmlFor="date" md={2}>
-              Investment Name
-            </Label>
-            <Col md={5}>
-              <Input
-                type="text"
-                id="investName"
-                name="investName"
-                placeholder="Investment Name"
-                value={this.state.investName}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup row>
-            <Label htmlFor="date" md={2}>
-              Capital Required for Investment
-            </Label>
-            <Col md={5}>
-              <Input
-                type="text"
-                id="capitalRe"
-                name="capitalRe"
-                placeholder="Capital Required for Investment"
-                value={this.state.capitalRe}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </FormGroup>
+          {formList}
         </Form>
       </div>
     );
