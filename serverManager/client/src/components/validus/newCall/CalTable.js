@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 var products = [
   {

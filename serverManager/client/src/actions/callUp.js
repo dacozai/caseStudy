@@ -2,6 +2,22 @@ import axios from "axios";
 
 import { GET_FUNDS, GET_REQUESTS } from "./types";
 
+const buildFundColumnName = fund => {
+  let columns = [];
+  let fundTitle = {};
+  for (let i=0;i< fund.length; i++) {
+    let elem = fund[i]; 
+    let builtKey = nameToKey(elem.name);
+    columns.push({dataField: builtKey,text: elem.name});
+    fundTitle[elem.fund_id] = builtKey;
+  }
+  return [columns, fundTitle]; 
+}
+
+const nameToKey = name => {
+  return name.replace(/[ ,]+/g, "_");
+}
+
 // GET FUNDS
 export const getFunds = () => dispatch => {
   const reqOne = axios.get("/api/fund/");
@@ -57,25 +73,18 @@ export const getFunds = () => dispatch => {
       return obj;
     } 
 
-    let buildFundColumnName = fund => {
-      let columns = [];
-      let fundTitle = {};
-      for (let i=0;i< fund.length; i++) {
-        let elem = fund[i]; 
-        let builtKey = nameToKey(elem.name);
-        columns.push({dataField: builtKey,text: elem.name});
-        fundTitle[elem.fund_id] = builtKey;
-      }
-      return [columns, fundTitle]; 
-    }
-
-    let nameToKey = name => {
-      return name.replace(/[ ,]+/g, "_");
-    }
-
 };
 
-export const onChangeRequest = () => dispatch => {
+export const onChangeRequest = (event) => (dispatch, getState) => {
+  let preState = getState().callsReducer.callRequest;
+  const target = event.target;
+  const value = target.type === "checkbox" ? target.checked : target.value;
+  const name = target.name;
+  preState[name] = value;
 
+  dispatch({
+    type: GET_REQUESTS,
+    payload: preState
+  });
 }
 

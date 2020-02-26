@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import {
   Form,
-  Button,
 } from "reactstrap";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { onChangeRequest } from "../../../../actions/callUp";
 
 import Elem from "./CallFormElem";
 import ElemOpt from "./CallFormOpt";
@@ -19,8 +21,12 @@ export class CalForm extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.wtf = this.wtf.bind(this);
   }
+
+  static propTypes = {
+    callRequest: PropTypes.object.isRequired,
+    onChangeRequest: PropTypes.func.isRequired
+  };
 
   handleInputChange(event) {
     const target = event.target;
@@ -37,10 +43,6 @@ export class CalForm extends Component {
     alert("Current State is: " + JSON.stringify(this.state));
     event.preventDefault();
   }
-  
-  wtf() {
-    this.props.callbackFromChild(this.state);
-  }
 
   render() {
     const elements = [
@@ -49,11 +51,11 @@ export class CalForm extends Component {
         labelFor: "inDate",
         labelName: "Date",
         inpuType: "date",
-        inpuId: "inDate",
-        inpuName: "inDate",
+        inpuId: "date",
+        inpuName: "date",
         inpuPlaceholder: "date",
-        inpuValue: this.state.inDatea,
-        onChgMethod: this.handleInputChange
+        inpuValue: this.props.date,
+        onChgMethod: this.props.onChangeRequest
       }, {
         keyField: "d_formRule",
         labelFor: "rule",
@@ -63,27 +65,27 @@ export class CalForm extends Component {
         inpuName: "rule",
         inpuPlaceholder: "Rule",
         inpuValue: this.state.rule,
-        onChgMethod: this.handleInputChange
+        onChgMethod: this.props.onChangeRequest
       }, {
         keyField: "d_formInvest",
         labelFor: "date",
         labelName: "Investment Name",
         inpuType: "text",
-        inpuId: "investName",
-        inpuName: "investName",
+        inpuId: "name",
+        inpuName: "name",
         inpuPlaceholder: "Investment Name",
-        inpuValue: this.state.investName,
-        onChgMethod: this.handleInputChange
+        inpuValue: this.props.name,
+        onChgMethod: this.props.onChangeRequest
       }, {
         keyField: "d_formCapital",
         labelFor: "date",
         labelName: "Capital Required for Investment",
         inpuType: "text",
-        inpuId: "capitalRe",
-        inpuName: "capitalRe",
+        inpuId: "amount",
+        inpuName: "amount",
         inpuPlaceholder: "Capital Required for Investment",
-        inpuValue: this.state.capitalRe,
-        onChgMethod: this.handleInputChange
+        inpuValue: this.props.amount,
+        onChgMethod: this.props.onChangeRequest
       }
     ];
 
@@ -97,11 +99,15 @@ export class CalForm extends Component {
       <div>
         <Form onSubmit={this.handleSubmit}>
           {formList}
-          <Button onClick={this.wtf}> CCCCCCalculate </Button>
         </Form>
       </div>
     );
   }
 }
 
-export default CalForm;
+const mapStateToProps = state => ({
+  callRequest: state.callsReducer.callRequest
+});
+
+export default connect(mapStateToProps, { onChangeRequest })(CalForm);
+
