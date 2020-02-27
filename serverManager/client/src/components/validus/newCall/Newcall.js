@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Container, Button, Row, Col } from "reactstrap";
+import { Button, Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { calculateCall } from "../../../actions/callUp";
+import { calculateCall, submitData } from "../../../actions/callUp";
 
 import Fakehader from "../Fakehader";
 import ConfirmTable from "./ConfirmTable";
@@ -13,15 +13,21 @@ class Newcall extends Component {
   constructor(props) {
     super(props);
     this.onClickRequest = this.onClickRequest.bind(this);
+    this.deliverResult = this.deliverResult.bind(this);
   }
 
   static propTypes = {
     callRequest: PropTypes.object.isRequired,
-    calculateCall: PropTypes.func.isRequired
+    calculateCall: PropTypes.func.isRequired,
+    submitData: PropTypes.func.isRequired,
   };
 
   onClickRequest() {
     this.props.calculateCall(this.props.callRequest.amount);
+  }
+
+  deliverResult() {
+    this.props.submitData()
   }
 
   render() {
@@ -50,7 +56,7 @@ class Newcall extends Component {
           <Col xs="4"></Col>
           <Col xs="4">
             <ConfirmTable />
-            <Button> confirm </Button>
+            <Button onClick={this.deliverResult}> confirm </Button>
           </Col>
         </Row>
       </div>
@@ -63,4 +69,4 @@ const mapStateToProps = state => ({
   commits: state.callsReducer.commits
 });
 
-export default connect(mapStateToProps, {calculateCall} )(Newcall);
+export default connect(mapStateToProps, {calculateCall, submitData} )(Newcall);
