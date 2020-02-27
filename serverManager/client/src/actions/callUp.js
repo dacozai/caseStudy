@@ -2,13 +2,14 @@ import axios from "axios";
 
 import { GET_FUNDS, GET_REQUESTS, GET_COMMITS, GET_RESULT } from "./types";
 
+
 const buildFundColumnName = fund => {
   let columns = [];
   let fundTitle = {};
   for (let i = 0; i < fund.length; i++) {
     let elem = fund[i];
     let builtKey = nameToKey(elem.name);
-    columns.push({ dataField: builtKey, text: elem.name });
+    columns.push({ field: builtKey, title: elem.name });
     fundTitle[elem.fund_id] = builtKey;
   }
   return [columns, fundTitle];
@@ -25,7 +26,8 @@ const keyToName = name => {
 const dateToYMDwSlash = varDate => {
   varDate = new Date(varDate);
   let Y = varDate.getFullYear().toString();
-  let m = (varDate.getMonth() + 1).toString();
+  let m = (varDate.getMonth() + 1);
+  m = parseInt(m)<10?'0'+m.toString():m;
   let d = varDate.getDate().toString();
   return Y+'/'+m+'/'+d;
 }
@@ -47,8 +49,8 @@ export const getFunds = () => dispatch => {
 
         let obj = {
           column: [
-            { dataField: "date", text: "Date" },
-            { dataField: "call", text: "Call #" }
+            { field: "date", title: "Date" },
+            { field: "call", title: "Call #" }
           ]
         };
         var [tmpColName, fundTitleObj] = buildFundColumnName(fund);
@@ -121,14 +123,14 @@ export const getCommitTable = () => dispatch => {
 
         let obj = {
           column: [
-            { dataField: "commit_id", text: "Commit_ID" },
-            { dataField: "fund_id", text: "Fund_ID" },
-            { dataField: "date", text: "Date" },
-            { dataField: "fund", text: "Fund" },
-            { dataField: "amount", text: "Commited Amounts" },
-            { dataField: "commitBefore", text: "Undrawn Capital Commitment before Current Drawdown Notice" },
-            { dataField: "drawNotice", text: "Total Drawdown Notice" },
-            { dataField: "commitAfter", text: "Undrawn Capital Commitment after Current Drawdown Notice" },
+            { field: "commit_id", title: "Commit_ID" },
+            { field: "fund_id", title: "Fund_ID" },
+            { field: "date", title: "Date" },
+            { field: "fund", title: "Fund" },
+            { field: "amount", title: "Commited Amounts" },
+            { field: "commitBefore", title: "Undrawn Capital Commitment before Current Drawdown Notice" },
+            { field: "drawNotice", title: "Total Drawdown Notice" },
+            { field: "commitAfter", title: "Undrawn Capital Commitment after Current Drawdown Notice" },
           ],
           data: null
         };
@@ -139,11 +141,11 @@ export const getCommitTable = () => dispatch => {
         for (let i=0;i<commit.length; i++ ) {
           let tmp = {};
           const raw = commit[i];
-          tmp[obj.column[0].dataField] = raw.id;
-          tmp[obj.column[1].dataField] = raw.fund_id;
-          tmp[obj.column[2].dataField] = dateToYMDwSlash(raw.date);
-          tmp[obj.column[3].dataField] = keyToName(fundTitleObj[raw.fund_id]);
-          tmp[obj.column[4].dataField] = Number(raw.amount);
+          tmp[obj.column[0].field] = raw.id;
+          tmp[obj.column[1].field] = raw.fund_id;
+          tmp[obj.column[2].field] = dateToYMDwSlash(raw.date);
+          tmp[obj.column[3].field] = keyToName(fundTitleObj[raw.fund_id]);
+          tmp[obj.column[4].field] = Number(raw.amount);
 
           let totalAmount = Number(raw.amount); 
           for (let i=0; i<invest.length;i++) {
@@ -152,9 +154,9 @@ export const getCommitTable = () => dispatch => {
             }
           }
 
-          tmp[obj.column[5].dataField] = totalAmount;
-          tmp[obj.column[6].dataField] = null;
-          tmp[obj.column[7].dataField] = null;
+          tmp[obj.column[5].field] = totalAmount;
+          tmp[obj.column[6].field] = null;
+          tmp[obj.column[7].field] = null;
           tempData.push(tmp);
         }
         obj.data = tempData;
@@ -169,30 +171,46 @@ export const getCommitTable = () => dispatch => {
 
 // Calculate
 export const calculateCall = investment => (dispatch, getState) => {
-  let data = getState().callsReducer.commits.data;
-  let commitsVar = getState().callsReducer.commits; 
+  
 
-  for (let i=0;i<data.length;i++) {
-    if (investment === 0) {
-      data[i].drawNotice = data[i].commitBefore;
-      investment = null;
-    } else if (data[i].commitBefore < investment) {
-      data[i].drawNotice = data[i].commitBefore;
-      investment -= data[i].commitBefore;
-    } else if (data[i].commitBefore >= investment) {
-      data[i].drawNotice = investment;
-      data[i].commitAfter = data[i].commitBefore - investment;
-      investment = 0; 
-    } else {
-      data[i].commitAfter = data[i].commitBefore;
-    }
-  }
-  commitsVar.data = data;
+  axios
+    .get("/api/fund/")
+    .catch(err => console.log(err))
+    .then(res => {
+      let data = getState().callsReducer.commits.data;
+      let commitsVar = getState().callsReducer.commits; 
+      let finalTable = res.data.map( (raw) => {
+        raw["amount"] = null;
+        return raw;
+      });
 
-  dispatch({
-    type: GET_RESULT,
-    payload: commitsVar
-  });
+      for (let i=0;i<data.length;i++) {
+        if (investment === null) {
+          data[i].commitAfter = data[i].commitBefore;
+        } else if (investment === 0) {
+          data[i].drawNotice = data[i].commitBefore;
+          investment = null;
+        } else if (data[i].commitBefore < investment) {
+          data[i].drawNotice = data[i].commitBefore;
+          finalTable[data[i].fund_id - 1]["amount"] = data[i].drawNotice;
+          investment -= data[i].commitBefore;
+        } else if (data[i].commitBefore >= investment) {
+          data[i].drawNotice = investment;
+          finalTable[data[i].fund_id - 1]["amount"] = data[i].drawNotice;
+          data[i].commitAfter = data[i].commitBefore - investment;
+          investment = 0; 
+        } 
+      }
+      commitsVar.data = data;
+      commitsVar.finalTable = finalTable;
+      console.log(commitsVar);
+    
+      dispatch({
+        type: GET_RESULT,
+        payload: commitsVar
+      });
+    });
+  
 }
 
 

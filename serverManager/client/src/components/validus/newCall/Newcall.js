@@ -21,7 +21,6 @@ class Newcall extends Component {
   };
 
   onClickRequest() {
-    console.log("hi");
     this.props.calculateCall(this.props.callRequest.amount);
   }
 
@@ -29,31 +28,39 @@ class Newcall extends Component {
     return (
       <div>
         <Fakehader />
-        <Container>
-          <Row>
-            <Col xs="4">
-              <CalForm />
-            </Col>
-            <Col xs="8">
-              <CalTable />
-            </Col>
-          </Row>
-          <Button onClick={this.onClickRequest}> Calculate </Button>
-          {/* <ConfirmTable /> */}
-          <Row>
-            <Col xs="4"></Col>
-            <Col xs="4">
-              <Button> confirm </Button>
-            </Col>
-          </Row>
-        </Container>
+        <Row>
+          <Col xs="3">
+            <Row>
+              <Col xs="2" />
+              <Col xs="10">
+                <Row>
+                  <CalForm hey={this.props.commits}/>
+                </Row>
+                <Row>
+                  <Button onClick={this.onClickRequest}> Calculate </Button>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+          <Col xs="9">
+            <CalTable />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="4"></Col>
+          <Col xs="4">
+            <ConfirmTable />
+            <Button> confirm </Button>
+          </Col>
+        </Row>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  callRequest: state.callsReducer.callRequest
+  callRequest: state.callsReducer.callRequest,
+  commits: state.callsReducer.commits
 });
 
 export default connect(mapStateToProps, {calculateCall} )(Newcall);

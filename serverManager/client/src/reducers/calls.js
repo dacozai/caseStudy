@@ -12,8 +12,9 @@ const initialState = {
   },
   commits: {
     column: [],
-    data: []
-  }
+    data: [],
+    finalTable: []
+  },
 };
 
 export default function(state = initialState, action) {

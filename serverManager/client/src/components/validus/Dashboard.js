@@ -5,11 +5,10 @@ import { getFunds } from "../../actions/callUp";
 
 import Fakehader from "./Fakehader";
 
-import BootstrapTable from 'react-bootstrap-table-next';
-import { Container } from 'reactstrap';
+import MaterialTable from "material-table";
+import { Container } from "reactstrap";
 
 export class Dashboard extends Component {
-  
   static propTypes = {
     funds: PropTypes.object.isRequired,
     getFunds: PropTypes.func.isRequired
@@ -20,26 +19,22 @@ export class Dashboard extends Component {
   }
 
   render() {
-    console.log("DashBoard: ",this.props.funds);
-
-    if (this.props.funds.column.length > 0 && this.props.funds.data.length > 0 ) {
-      return (
-        <div>
-          <Fakehader />
-          <Container>
-            <BootstrapTable keyField='id' data={ this.props.funds.data } columns={ this.props.funds.column } />
-          </Container>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Fakehader />
-          <Container>
-          </Container>
-        </div>
-      );
-    }    
+    return (
+      <div>
+        <Fakehader />
+        <Container>
+          <MaterialTable
+            columns={this.props.funds.column}
+            data={this.props.funds.data}
+            title={""}
+            options={{
+              search: false,
+              exportButton: false
+            }}
+          />
+        </Container>
+      </div>
+    );
   }
 }
 

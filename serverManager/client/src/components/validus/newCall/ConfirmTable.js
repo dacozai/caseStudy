@@ -1,61 +1,39 @@
 import React, { Component } from 'react'
-import {
-  Row,
-  Col
-} from "reactstrap";
+import MaterialTable from "material-table";
 
-var downTable = [
-  {
-    name: "Fund 1",
-    totalDrawNotice: 5000000.0
-  },
-  {
-    name: "Fund 2",
-    totalDrawNotice: 95000000.0
-  },
-  {
-    name: "Fund 3",
-    totalDrawNotice: null
-  },
-  {
-    name: "Fund 4",
-    totalDrawNotice: null
-  },
-  {
-    name: "Fund 5",
-    totalDrawNotice: null
-  }
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
+const columns = [
+  {field: "name", title: ""},
+  {field: "amount", title: "Total Drawdown Notice"},
 ];
 
 export class ConfirmTable extends Component {
+  static propTypes = {
+    commits: PropTypes.object.isRequired,
+  };
+
   render() {
     return (
-      <div>
-        <Row>
-          <Col xs="3"></Col>
-          <Col xs="6">
-            <BootstrapTable data={downTable}>
-              <TableHeaderColumn
-                dataField="name"
-                isKey
-                width="50%"
-                dataAlign="center"
-              >
-                Commitment_ID
-              </TableHeaderColumn>
-              <TableHeaderColumn
-                dataField="totalDrawNotice"
-                width="50%"
-                dataAlign="center"
-              >
-                Fund_ID
-              </TableHeaderColumn>
-            </BootstrapTable>
-          </Col>
-        </Row>
-      </div>
-    )
+      <MaterialTable 
+        columns = {columns}
+        data = {this.props.commits.finalTable}
+        title = ""
+        options={{
+          search: false,
+          exportButton: false,
+          paging: false,
+          detailPanelColumnAlignment: 'right',
+        }}
+      />
+    );
   }
 }
 
-export default ConfirmTable
+const mapStateToProps = state => ({
+  commits: Object.assign({}, state.callsReducer.commits)
+});
+
+export default connect(mapStateToProps)(ConfirmTable);
+
