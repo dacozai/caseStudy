@@ -10,15 +10,13 @@ export class Header extends Component {
 
   render() {
     return (
-       <React.Fragment>
-        <Navbar color="light" light expand="md">
-          <div className="container">
-            <NavbarBrand className="mr-auto" href="/">
-              <img alt="404" src={ imgLogo } />
-            </NavbarBrand>
-          </div>
-        </Navbar>
-      </React.Fragment>
+      <Navbar color="light" light expand="md">
+        <div className="container">
+          <NavbarBrand className="mr-auto" href="/">
+            <img alt="404" src={ imgLogo } />
+          </NavbarBrand>
+        </div>
+      </Navbar>
     )
   }
 }

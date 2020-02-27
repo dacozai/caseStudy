@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getFunds } from "../../actions/callUp";
 
-import Fakehader from "./Fakehader";
+import Fakehader from "../layout/Fakehader";
 
 import MaterialTable from "material-table";
 import { Container } from "reactstrap";
