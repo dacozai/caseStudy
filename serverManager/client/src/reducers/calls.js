@@ -1,4 +1,4 @@
-import { GET_FUNDS, GET_REQUESTS } from "../actions/types.js";
+import { GET_FUNDS, GET_REQUESTS, GET_COMMITS, GET_RESULT } from "../actions/types.js";
 
 const initialState = {
   funds: {
@@ -9,6 +9,10 @@ const initialState = {
     date: "",
     name: "",
     amount: ""
+  },
+  commits: {
+    column: [],
+    data: []
   }
 };
 
@@ -23,6 +27,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         callRequest: action.payload
+      };
+    case GET_COMMITS:
+      return {
+        ...state,
+        commits: action.payload
+      };
+    case GET_RESULT:
+      return {
+        ...state,
+        commits: action.payload
       };
     default:
       return state;

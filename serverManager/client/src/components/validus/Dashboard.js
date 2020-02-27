@@ -9,6 +9,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Container } from 'reactstrap';
 
 export class Dashboard extends Component {
+  
   static propTypes = {
     funds: PropTypes.object.isRequired,
     getFunds: PropTypes.func.isRequired
@@ -19,6 +20,8 @@ export class Dashboard extends Component {
   }
 
   render() {
+    console.log("DashBoard: ",this.props.funds);
+
     if (this.props.funds.column.length > 0 && this.props.funds.data.length > 0 ) {
       return (
         <div>

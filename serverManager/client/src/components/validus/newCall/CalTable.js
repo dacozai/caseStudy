@@ -2,40 +2,35 @@ import React, { Component } from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
-var products = [
-  {
-    commitId: 1,
-    fundId: 1,
-    date: "2018/1/31",
-    fund: "Fund_1",
-    commitAmount: 10000000.0,
-    notice: 500000.0,
-    totalDrawNotice: 500000.0,
-    undrawCapiNotice: null
-  }
-];
-
-var columns = [
-  {dataField: "commitId",text: "Commitment_ID"},
-  {dataField: "fundId",text: "Fund_ID"},
-  {dataField: "date",text: "Date"},
-  {dataField: "fund",text: "Fund"},
-  {dataField: "commitAmount",text: "Commited Amount"},
-  {dataField: "notice",text: "Notice"},
-  {dataField: "totalDrawNotice",text: "Total Drawdown Notice"},
-  {dataField: "undrawCapiNotice",text: "Undrawn Capital Commitment After Current Drawdown Notice"},
-]
+import { getCommitTable } from "../../../actions/callUp";
 
 export class CalTable extends Component {
+  static propTypes = {
+    commits: PropTypes.object.isRequired,
+    getCommitTable: PropTypes.func.isRequired
+  };
+
+  componentDidMount() {
+    this.props.getCommitTable();
+  }
+
   render() {
+    if (this.props.commits.column.length > 0) {
+      return (
+        <div>
+          <BootstrapTable keyField='id' data={ this.props.commits.data } columns={ this.props.commits.column } />
+        </div>
+      );
+    }
     return (
-      <div>
-        <BootstrapTable keyField='id' data={ products } columns={ columns } />
-          
-      </div>
+      <div></div>
     );
   }
 }
 
-export default CalTable;
+const mapStateToProps = state => ({
+  commits: state.callsReducer.commits
+});
+
+export default connect(mapStateToProps, { getCommitTable })(CalTable);
+

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Button, Row, Col } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { calculateCall } from "../../../actions/callUp";
 
 import Fakehader from "../Fakehader";
 import ConfirmTable from "./ConfirmTable";
@@ -16,10 +17,12 @@ class Newcall extends Component {
 
   static propTypes = {
     callRequest: PropTypes.object.isRequired,
+    calculateCall: PropTypes.func.isRequired
   };
 
   onClickRequest() {
-    console.log(this.props.callRequest);
+    console.log("hi");
+    this.props.calculateCall(this.props.callRequest.amount);
   }
 
   render() {
@@ -28,10 +31,10 @@ class Newcall extends Component {
         <Fakehader />
         <Container>
           <Row>
-            <Col xs="5">
+            <Col xs="4">
               <CalForm />
             </Col>
-            <Col xs="7">
+            <Col xs="8">
               <CalTable />
             </Col>
           </Row>
@@ -53,4 +56,4 @@ const mapStateToProps = state => ({
   callRequest: state.callsReducer.callRequest
 });
 
-export default connect(mapStateToProps)(Newcall);
+export default connect(mapStateToProps, {calculateCall} )(Newcall);

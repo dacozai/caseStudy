@@ -28,7 +28,7 @@ class CommitViewSet(viewsets.ModelViewSet):
 
 # Call ViewSet
 class CallViewSet(viewsets.ModelViewSet):
-  queryset = Call.objects.all()
+  queryset = Call.objects.all().order_by('date')
   permission_classes = [
     permissions.AllowAny
   ]
