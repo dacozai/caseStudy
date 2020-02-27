@@ -1,15 +1,33 @@
 # Validus Case Study
 
 
-
+## Directory Structure
 
     .
     ├── ..
-    ├── serverManager    # Frontend folder
-    ├── venv             # Docker folder to deploy the website
-    ├── node_modules     # Crawling robot that parse data from football website
-    ├── server           # Server side
-    └── README.md        # Overview of this project 
+    ├── serverManager                   # Application
+    │   ├── client                      # frontend folder
+    │   │   ├── migrations              # (frontend doesn'y use) 
+    │   │   ├── src                     # React files
+    │   │   │   ├── actions             # actions for reducers
+    │   │   │   ├── components          # Components
+    │   │   │   ├── images              # iCon image
+    │   │   │   ├── reducers            # reducers
+    │   │   │   └── styles              # SASS files
+    │   │   ├── static                  # output main.js for Django
+    │   │   ├── template                # index.html
+    │   │   └── rest files     
+    │   ├── server                      # server folder
+    │   │   ├── migrations              # migration resources
+    │   │   ├── api.py                  # ViewSet
+    │   │   ├── models.py               # ORM models
+    │   │   ├── serializers.py          # serializers
+    │   │   ├── urls.py                 # url register
+    │   │   └── rest files     
+    │   └── serverManager               # Setting for backend server
+    ├── venv                            # Python virtual tool 
+    ├── node_modules                    # JS packages
+    └── README.md                       # README
 
 # Agile Methodology - Kanban
 This is the [link](https://trello.com/b/pXSrucTg) from Trello that I manage to build up this case study through React and Django.
