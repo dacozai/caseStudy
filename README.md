@@ -29,7 +29,17 @@
     ├── node_modules                    # JS packages
     └── README.md                       # README
 
-# Agile Methodology - Kanban
+## Usage Instructions
+```bash
+git clone https://github.com/dacozai/caseStudy.git
+cd caseStudy
+cd serverManager && python manage.py runserver # path/caseStudy/serverManager
+# Open new window for frontend
+cd .. && yarn run dev # path/caseStudy
+```
+
+
+## Agile Methodology - Kanban
 This is the [link](https://trello.com/b/pXSrucTg) from Trello that I manage to build up this case study through React and Django.
 
 
