@@ -5,7 +5,7 @@ const CONFIG = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -27,14 +27,12 @@ const CONFIG = {
           {
             loader: 'url-loader',
             options: {
-              limit: 25600,
+              limit: 100000,
+              publicPath: 'built'
             },
           },
         ],
-      }, {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000',
-      },
+      }
     ]
   }
 }

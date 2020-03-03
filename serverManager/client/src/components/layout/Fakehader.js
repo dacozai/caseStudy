@@ -8,7 +8,7 @@ import {
   Collapse,
   NavItem
 } from "reactstrap";
-// import logo from "../images/logos/ValidusLogo.png";
+import Logo from './Logo';
 
 export class Fakehader extends Component {
   constructor(props) {
@@ -28,15 +28,9 @@ export class Fakehader extends Component {
   render() {
     return (
       <Navbar color="light" light expand="md">
-          <NavbarToggler onClick={this.toggleNav} />
-          <NavbarBrand className="mr-auto" href="/">
-            {/* <img src={logo} height="100" width="100" alt="Validus" /> */}
-          </NavbarBrand>
-          <NavLink className="mr-auto" to="/">
-            <span> Capital call</span>
-          </NavLink>
+          <Logo />
           <Collapse isOpen={this.state.isNavOpen} navbar>
-            <Nav className="mr" navbar>
+            <Nav className="ml" navbar>
               <NavItem>
                 <p>Capital Call</p>
               </NavItem>

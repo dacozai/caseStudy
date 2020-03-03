@@ -219,7 +219,7 @@ export const calculateCall = investment => (dispatch, getState) => {
       }
       commitsVar.data = data;
       commitsVar.finalTable = finalTable;
-      console.log(commitsVar);
+      /// console.log(commitsVar);
 
       dispatch({
         type: GET_RESULT,
@@ -268,6 +268,5 @@ export const submitData = () => (dispatch, getState) => {
     payload: allData
   });
 };
-
 
 

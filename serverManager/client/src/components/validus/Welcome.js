@@ -1,30 +1,25 @@
-import React, { Component } from "react";
-import {
-  Link,
-} from "react-router-dom";
+import React from "react";
 
-import "../../styles/mine.scss"
-import Header from '../layout/Header';
+import "../../styles/mine.scss";
+import Header from "../layout/Header";
 
-export class Welcome extends Component {
-
-  goToSomewhere(e){
-    e.preventDefault();
-    console.log("go to other page");
+const Welcome = (props) => {
+  
+  function handleClick() {
+    const redirectURL = "/dashboard";
+    props.history.push(redirectURL);
   }
 
-  render() {
-    return (
-      <div>
-        <Header />
-        <div className="container">
-          <button className="myBt" onClick={this.handleClick}> 
-            <Link to="/dashboard">Capital Call</Link> 
-          </button>
-        </div>
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <button className="myBt" onClick = {handleClick}> 
+          Capital Call
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Welcome;

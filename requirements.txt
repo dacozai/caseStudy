@@ -1,3 +1,0 @@
-django == 3.0.3
-djangoframework == 3.11.0
-django-rest-knox == 4.1.0

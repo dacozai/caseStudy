@@ -1,18 +1,16 @@
 $myColor: green;
-$btHeightSize: 150px; 
+$btHeightSize: 150; 
 $btWidthSize: $btHeightSize * 2; 
 
 // control of bootstrap col size
 $formTitle: 5;
 $formValue: 7;
 
-h2 {
-  color: $myColor;
-}
+h2 {  color: $myColor;  }
 
 .myBt {
   font-size: 30px;
-  height: $btHeightSize;
+  height: $btHeightSize + 0px;
   width: $btWidthSize;
   margin: 50px;
 }
